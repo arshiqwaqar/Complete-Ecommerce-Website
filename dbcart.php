@@ -47,4 +47,16 @@ else{
     
     
 }
+if(isset($_POST['btn2'])){
+  
+                      if(isset($_SESSION['id'])!=null){
+                      $q="SELECT COUNT(pid) from cart";
+                      $result=mysqli_query($con,$q);
+                      while($data=mysqli_fetch_assoc($result)){
+                        
+                        echo "<span class='count bg-warning'>{$data['COUNT(pid)']}</span>";
+                        
+}
+}
+}
 ?>

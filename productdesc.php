@@ -87,17 +87,7 @@ require("config.php");
                   <li>
                   <a href="cart.php" class="site-cart" id="btn-cartload">
                       <span class="icon icon-shopping_cart"></span>
-                      <?php
-                      if(isset($_SESSION['id'])!=null){
-                      $q="SELECT COUNT(pid) from cart";
-                      $result=mysqli_query($con,$q);
-                      while($data=mysqli_fetch_assoc($result)){
-                        ?>
-                        <span class="count bg-warning"><?=$data['COUNT(pid)']?></span>
-                        <?php
-                      }
-                    }
-                      ?>
+                    <span id="cart"></span>
                       
                     </a>
                   </li> 
@@ -302,8 +292,9 @@ require("config.php");
 }
 </script>
 <script>
-  
+  loadcart()
   function upt_cart(pid,price){
+    
     $.ajax(
       {
         url:'dbcart.php',
@@ -317,7 +308,24 @@ require("config.php");
           
         },
         success:function(value){
-          alert(value);
+          
+          loadcart()
+        }
+      },
+    )
+
+  }
+  function loadcart(){
+    $.ajax(
+      {
+        url:'dbcart.php',
+        method:'post',
+        data:{
+          btn2:"btn-cart",
+          
+        },
+        success:function(value){
+          document.getElementById('cart').innerHTML=value;
         }
       },
     )
